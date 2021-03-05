@@ -1,16 +1,34 @@
 import s from './FeedbackOptions.module.css';
-export default function FeedbackOptions({ options }) {
+import PropTypes from 'prop-types';
+export default function FeedbackOptions({ options, onLeaveFeedback }) {
+  const optionKeys = Object.keys(options);
   return (
-    // <div>
-    //   <div className={s.option}>
-    //     {optionKeys.map(option => {
-    //       return (
-    //         <div key={option}>
-    //           <button value={option}>{option}</button>
-    //         </div>
-    //       );
-    //     })}
     <div>
+      <div className={s.option}>
+        {optionKeys.map(option => {
+          return (
+            <div key={option}>
+              <button
+                onClick={() => {
+                  onLeaveFeedback(option);
+                }}
+              >
+                {option}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.shape()),
+};
+
+{
+  /* <div>
       <button type="button" className={s.green} onClick={() => options('good')}>
         Good
       </button>
@@ -24,8 +42,5 @@ export default function FeedbackOptions({ options }) {
       <button type="button" className={s.red} onClick={() => options('bad')}>
         Bad
       </button>
-    </div>
-    //   </div>
-    // </div>
-  );
+    </div> */
 }

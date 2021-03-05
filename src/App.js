@@ -4,6 +4,7 @@ import Statistics from './components/Statistics';
 import FeedbackOptions from './components/FeedbackOptions';
 import Section from './components/Section/Section';
 import Notification from './components/Notifications/Notifications';
+
 export class App extends Component {
   state = {
     good: 0,
@@ -15,12 +16,6 @@ export class App extends Component {
     return Object.values(this.state).reduce((acc, value) => acc + value, 0);
   };
 
-  stateArray = () => {
-    let foo = [];
-    foo.push(...this.state);
-    console.log(foo);
-  };
-
   countPositiveFeedbackPercentage() {
     const { good } = this.state;
     const total = this.countTotalFeedback();
@@ -30,6 +25,7 @@ export class App extends Component {
   increment = name => {
     this.setState(prevState => {
       return {
+        ...prevState,
         [name]: prevState[name] + 1,
       };
     });
@@ -42,8 +38,8 @@ export class App extends Component {
       <>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            // onLeaveFeedback={this.stateArray}
-            options={this.increment}
+            onLeaveFeedback={this.increment}
+            options={this.state}
           ></FeedbackOptions>
         </Section>
 
